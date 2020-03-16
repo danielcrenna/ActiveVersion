@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(ProjectDir)..\..\build\package.props" />
+  <Import Project="$(ProjectDir)..\..\build\build.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Configurations>Debug;Release;Package</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="ActiveCaching" Version="1.0.1" />
+    <PackageReference Include="ActiveOptions" Version="1.0.2" />
+    <PackageReference Include="ActiveRoutes" Version="1.0.8" />
+    <PackageReference Include="TypeKitchen" Version="1.2.7" />
+  </ItemGroup>
+
+</Project>
