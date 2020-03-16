@@ -5,14 +5,14 @@
     <Authors>Daniel Crenna &amp; Contributors</Authors>
     <Description>Simple middleware for version-awareness in .NET Core.</Description>
     <Copyright>Copyright © Daniel Crenna &amp; Contributors. All rights reserved.</Copyright>
-    <PackageIconUrl>https://raw.githubusercontent.com/danielcrenna/Version/master/assets/logo.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/danielcrenna/Version</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/danielcrenna/ActiveVersion/master/assets/logo.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/danielcrenna/ActiveVersion</PackageProjectUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/danielcrenna/ActiveVersion</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>dynamic versioning middleware</PackageTags>
-    <Version>1.0.0</Version>
-    <PackageReleaseNotes>Initial implementation.</PackageReleaseNotes>
+    <Version>1.0.1</Version>
+    <PackageReleaseNotes>Fix package metadata.</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
