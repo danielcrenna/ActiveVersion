@@ -11,8 +11,8 @@
     <RepositoryUrl>https://github.com/danielcrenna/ActiveVersion</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>dynamic versioning middleware</PackageTags>
-    <Version>1.0.1</Version>
-    <PackageReleaseNotes>Fix package metadata.</PackageReleaseNotes>
+    <Version>1.0.2</Version>
+    <PackageReleaseNotes>Update dependencies.</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
