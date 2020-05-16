@@ -6,9 +6,9 @@ using System;
 namespace ActiveVersion
 {
 	[AttributeUsage(AttributeTargets.All, Inherited = false)]
-	public class FingerprintAttribute : Attribute
+	public class VersionHashAttribute : Attribute
 	{
-		public FingerprintAttribute(ulong major, ulong minor = 0)
+		public VersionHashAttribute(ulong major, ulong minor = 0)
 		{
 			Major = major;
 			Minor = minor;

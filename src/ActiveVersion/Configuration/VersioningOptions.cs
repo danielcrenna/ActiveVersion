@@ -11,7 +11,7 @@ namespace ActiveVersion.Configuration
 		public int ExplicitVersionRequiredStatusCode = (int) HttpStatusCode.NotFound;
 		public bool RequireExplicitVersion { get; set; } = false;
 
-		public bool EnableVersionHeader { get; set; } = false;
+		public bool EnableVersionHeader { get; set; } = true;
 		public string VersionHeader { get; set; } = Constants.Versioning.VersionHeader;
 
 		public bool EnableVersionParameter { get; set; } = true;

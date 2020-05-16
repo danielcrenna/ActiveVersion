@@ -20,27 +20,24 @@ namespace ActiveVersion
 			return services.AddVersioning(config.FastBind);
 		}
 
-		public static IServiceCollection AddVersioning(this IServiceCollection services,
-			Action<VersioningOptions> configureAction = null)
+		public static IServiceCollection AddVersioning(this IServiceCollection services, Action<VersioningOptions> configureAction = null)
 		{
 			return services.AddVersioning<DefaultVersionContextResolver>(configureAction);
 		}
 
-		public static IServiceCollection AddVersioning<TVersionResolver>(this IServiceCollection services,
-			IConfiguration config)
-			where TVersionResolver : class, IVersionContextResolver
+		public static IServiceCollection AddVersioning<TVersionResolver>(this IServiceCollection services, IConfiguration config) where TVersionResolver : class, IVersionContextResolver
 		{
 			return services.AddVersioning<TVersionResolver>(config.FastBind);
 		}
 
-		public static IServiceCollection AddVersioning<TVersionResolver>(this IServiceCollection services,
-			Action<VersioningOptions> configureAction = null) where TVersionResolver : class, IVersionContextResolver
+		public static IServiceCollection AddVersioning<TVersionResolver>(this IServiceCollection services, Action<VersioningOptions> configureAction = null) where TVersionResolver : class, IVersionContextResolver
 		{
 			services.AddHttpContextAccessor();
 
 			if (configureAction != null)
 				services.Configure(configureAction);
 
+			services.AddHttpContextAccessor();
 			services.AddInProcessCache();
 			services.TryAddSingleton<IVersionContextStore, NoVersionContextStore>();
 			services.AddScoped<IVersionContextResolver, TVersionResolver>();

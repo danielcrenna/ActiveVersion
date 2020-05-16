@@ -8,6 +8,7 @@ namespace ActiveVersion
 	public class VersionContext
 	{
 		public static VersionContext None = new VersionContext();
+
 		public VersionGroup Group { get; set; }
 		public Dictionary<string, Version> Map { get; set; }
 		public string[] Identifiers { get; set; }

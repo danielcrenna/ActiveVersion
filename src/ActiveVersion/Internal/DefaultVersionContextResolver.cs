@@ -47,7 +47,7 @@ namespace ActiveVersion.Internal
 				return null; // fail early, no versioning, or no explicit version
 			}
 
-			StringValues versionKey;
+			StringValues versionKey = default;
 
 			//
 			// Explicit Version:

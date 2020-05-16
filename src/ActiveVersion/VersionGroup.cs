@@ -9,9 +9,7 @@ namespace ActiveVersion
 	public struct VersionGroup
 	{
 		public string GroupName { get; }
-
 		public VersionGroup(short year, byte month, byte day) : this($"{year:D4}-{month:D2}-{day:D2}") { }
-
 		public VersionGroup(string groupName) => GroupName = groupName;
 	}
 }
