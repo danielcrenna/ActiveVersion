@@ -18,7 +18,7 @@ namespace ActiveVersion
 				return true; // no version context, so we can't rule anything out
 
 			if (!(value is VersionContext versionContext))
-				return true; // developer error?
+				return true; // developer error
 
 			if (!(action is ControllerActionDescriptor controllerActionDescriptor))
 				return true; // unexpected level of abstraction
@@ -29,25 +29,19 @@ namespace ActiveVersion
 			if (!versionContext.Map.ContainsKey(controllerActionDescriptor.ControllerName))
 				return true; // out of scope: the version tree doesn't make a determination about this action
 
-			if (!(controllerActionDescriptor.EndpointMetadata.FirstOrDefault(x => x is VersionHashAttribute) is VersionHashAttribute fingerprint))
-				return true; // no identifier to make a determination
+			if (!(controllerActionDescriptor.EndpointMetadata.FirstOrDefault(x => x is VersionHashAttribute) is VersionHashAttribute valueHash))
+				return true; // no identifier to make a determination (likely developer error, omitting the value hash on the controller or action)
 
 			if (!versionContext.Map.TryGetValue(controllerActionDescriptor.ControllerName, out var version))
-				return true; // developer error?
+				return true; // developer error (missing controller version in the map)
 
 			// finally we can determine if this is the intended version or not
-			return CompareMajor(version, fingerprint) && CompareMinor(version, fingerprint);
-		}		
-
-		private static bool CompareMajor(Version version, VersionHashAttribute fingerprint)
-		{
-			return MostlyEqual(version.Major, fingerprint.Major);
+			return CompareMajor(version, valueHash) && CompareMinor(version, valueHash);
 		}
 
-		private static bool CompareMinor(Version version, VersionHashAttribute fingerprint)
-		{
-			return MostlyEqual(version.Minor.GetValueOrDefault(), fingerprint.Minor);
-		}
+		private static bool CompareMajor(Version version, VersionHashAttribute fingerprint) => MostlyEqual(version.Major, fingerprint.Major);
+
+		private static bool CompareMinor(Version version, VersionHashAttribute fingerprint) => MostlyEqual(version.Minor.GetValueOrDefault(), fingerprint.Minor);
 
 		private static bool MostlyEqual(ulong version, ulong fingerprint)
 		{
