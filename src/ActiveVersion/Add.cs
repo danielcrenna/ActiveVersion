@@ -5,7 +5,6 @@ using System;
 using ActiveCaching;
 using ActiveOptions;
 using ActiveVersion.Configuration;
-using ActiveVersion.Internal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

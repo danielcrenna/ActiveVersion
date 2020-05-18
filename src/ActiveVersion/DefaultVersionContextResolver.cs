@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 
-namespace ActiveVersion.Internal
+namespace ActiveVersion
 {
 	/// <summary>
 	///     Resolves a version context from metadata and a context store.
@@ -53,17 +53,17 @@ namespace ActiveVersion.Internal
 			// Explicit Version:
 			{
 				if (_options.CurrentValue.EnableVersionHeader &&
-				    !string.IsNullOrWhiteSpace(_options.CurrentValue.VersionHeader))
+					!string.IsNullOrWhiteSpace(_options.CurrentValue.VersionHeader))
 					http.Request.Headers.TryGetValue(_options.CurrentValue.VersionHeader, out versionKey);
 
 				if (_options.CurrentValue.EnableVersionParameter &&
-				    !string.IsNullOrWhiteSpace(_options.CurrentValue.VersionParameter) &&
-				    http.Request.QueryString.HasValue)
+					!string.IsNullOrWhiteSpace(_options.CurrentValue.VersionParameter) &&
+					http.Request.QueryString.HasValue)
 					http.Request.Query.TryGetValue(_options.CurrentValue.VersionParameter, out versionKey);
 
 				if (_options.CurrentValue.EnableVersionPath &&
-				    !string.IsNullOrWhiteSpace(_options.CurrentValue.VersionPathPrefix) &&
-				    http.Request.PathBase.HasValue)
+					!string.IsNullOrWhiteSpace(_options.CurrentValue.VersionPathPrefix) &&
+					http.Request.PathBase.HasValue)
 					versionKey = http.Request.PathBase.Value;
 			}
 
@@ -72,7 +72,7 @@ namespace ActiveVersion.Internal
 				//
 				// Implicit Version:
 				if (_options.CurrentValue.EnableUserVersions &&
-				    !string.IsNullOrWhiteSpace(_options.CurrentValue.UserVersionClaim))
+					!string.IsNullOrWhiteSpace(_options.CurrentValue.UserVersionClaim))
 				{
 					var claim = http.User.FindFirst(x => x.Type == ClaimTypes.Version);
 					if (claim != null)
