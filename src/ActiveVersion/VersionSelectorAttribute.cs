@@ -12,6 +12,13 @@ namespace ActiveVersion
 {
 	public class VersionSelectorAttribute : ActionMethodSelectorAttribute
 	{
+		public string Suffix { get; }
+
+		public VersionSelectorAttribute(string suffix = "")
+		{
+			Suffix = suffix;
+		}
+
 		public override bool IsValidForRequest(RouteContext routeContext, ActionDescriptor action)
 		{
 			if (!routeContext.HttpContext.Items.TryGetValue(Constants.ContextKeys.Version, out var value))
@@ -26,17 +33,23 @@ namespace ActiveVersion
 			if (versionContext.Map == null)
 				return true; // out of scope: we don't have any wire-ups to inject the data we need
 
-			if (!versionContext.Map.ContainsKey(controllerActionDescriptor.ControllerName))
-				return true; // out of scope: the version tree doesn't make a determination about this action
-
 			if (!(controllerActionDescriptor.EndpointMetadata.FirstOrDefault(x => x is VersionHashAttribute) is VersionHashAttribute valueHash))
 				return true; // no identifier to make a determination (likely developer error, omitting the value hash on the controller or action)
 
-			if (!versionContext.Map.TryGetValue(controllerActionDescriptor.ControllerName, out var version))
+			var controllerName = controllerActionDescriptor.ControllerName;
+			if (!string.IsNullOrEmpty(Suffix) && controllerName.EndsWith(Suffix))
+				controllerName = controllerName.Remove(controllerName.Length - Suffix.Length);
+
+			if (!versionContext.Map.ContainsKey(controllerName))
+				return true; // out of scope: the version tree doesn't make a determination about this action
+
+			if (!versionContext.Map.TryGetValue(controllerName, out var version))
 				return true; // developer error (missing controller version in the map)
 
 			// finally we can determine if this is the intended version or not
-			return CompareMajor(version, valueHash) && CompareMinor(version, valueHash);
+			var valid = CompareMajor(version, valueHash) && CompareMinor(version, valueHash);
+
+			return valid;
 		}
 
 		private static bool CompareMajor(Version version, VersionHashAttribute fingerprint) => MostlyEqual(version.Major, fingerprint.Major);
